@@ -24,9 +24,7 @@ static bool loadTexture(const char* fileName, GLuint* texture, int* width, int* 
 
 	if (!image_data)
 	{
-
 		std::cerr << "ERROR: could not load " << fileName << std::endl;
-		//fprintf(stderr, "ERROR: could not load %s\n", file_name);
 		return false;
 	}
 
@@ -34,12 +32,6 @@ static bool loadTexture(const char* fileName, GLuint* texture, int* width, int* 
 	if ((*width & (*width - 1)) != 0 || (*height & (*height - 1)) != 0)
 	{
 		std::cerr << "WARNING: texture " << fileName << "is not power-of-2 dimensions\n";
-
-		/*
-		fprintf(
-			stderr, "WARNING: texture %s is not power-of-2 dimensions\n", file_name
-		);
-		*/
 	}
 
 	glGenTextures(1, texture);
@@ -86,7 +78,7 @@ int main()
 
 #pragma region Basic Setup
 
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "MVR - Processamento Grafico - Desafio 05", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "MVR - Proc. Grafico - Desafio 05", nullptr, nullptr);
 
 	if (window == nullptr)
 	{
@@ -178,6 +170,7 @@ int main()
 
 	int oldScreenWidth = WIDTH;
 	int oldScrenHeight = HEIGHT;
+	double scrollSpeed = 50;
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -211,6 +204,8 @@ int main()
 		}
 
 		const int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
+		bool leftPressed = glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS;
+		bool rightPressed = glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS;
 
 		if (state == GLFW_PRESS)
 		{
@@ -229,6 +224,30 @@ int main()
 				background_02->SideScroll(dx * 0.0015);
 				background_03->SideScroll(dx * 0.0014);
 				background_04->SideScroll(dx * 0.0015);
+			}
+		}
+		else if (leftPressed)
+		{
+			float bg_01X = background_01->GetX();
+
+			if (bg_01X > -343)
+			{
+				background_01->SideScroll(scrollSpeed * 0.001 * -1.0f);
+				background_02->SideScroll(scrollSpeed * 0.0015 * -1.0f);
+				background_03->SideScroll(scrollSpeed * 0.0014 * -1.0f);
+				background_04->SideScroll(scrollSpeed * 0.0015 * -1.0f);
+			}
+		}
+		else if (rightPressed)
+		{
+			float bg_01X = background_01->GetX();
+
+			if (bg_01X < -87)
+			{
+				background_01->SideScroll(scrollSpeed * 0.001);
+				background_02->SideScroll(scrollSpeed * 0.0015);
+				background_03->SideScroll(scrollSpeed * 0.0014);
+				background_04->SideScroll(scrollSpeed * 0.0015);
 			}
 		}
 

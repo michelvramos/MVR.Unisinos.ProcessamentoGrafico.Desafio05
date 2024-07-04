@@ -27,13 +27,11 @@
     <Image Include="ken_stage_04_2.png" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="List.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="List.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="stb_image.h" />
   </ItemGroup>
