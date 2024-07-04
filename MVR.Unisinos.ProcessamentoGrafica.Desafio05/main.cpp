@@ -122,9 +122,12 @@ int main()
 		"out vec4 frag_color;"
 		"void main(){"
 		"   vec4 textel = texture(basic_texture, text_map);"
-		"   if(textel.a < 0.01){ discard;}"
+		"   if(textel.a < 0.5){ discard;}"
 		"   frag_color = textel;"
 		"}";
+	
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
 
 	int vertexShaderId = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertexShaderId, 1, &vertexShaderSourceCode, NULL);
@@ -158,7 +161,7 @@ int main()
 	background_02->Translate(0, HEIGHT - 72);
 
 	Sprite* background_03 = CreateBackgroundLayer("ken_stage_03_2.png", shaderProgram, 0.52f);
-	background_03->Translate(0, HEIGHT - 176 - 62);
+	background_03->Translate(0, HEIGHT - 176 - 77);
 
 	Sprite* background_04 = CreateBackgroundLayer("ken_stage_04_2.png", shaderProgram, 0.53f);
 	background_04->Translate(550, HEIGHT - 130);
